@@ -1,65 +1,192 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Sparkles, Car, DollarSign, Loader2 } from 'lucide-react';
+import Header from '@/components/header';
+import StatsBar from '@/components/stats-bar';
+import TicketGrid from '@/components/ticket-grid';
+import ReservationModal from '@/components/reservation-modal';
+import { Ticket, TICKET_PRICE, TOTAL_TICKETS } from '@/lib/types';
+import { useRifa } from '@/lib/rifa-context';
+
+export default function HomePage() {
+  const { isLoading, error } = useRifa();
+  const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleTicketSelect = (ticket: Ticket) => {
+    setSelectedTicket(ticket);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedTicket(null), 300);
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <>
+      <Header />
+
+      <main className="max-w-5xl mx-auto px-4 pb-12">
+        {/* Hero Section */}
+        <section className="py-8 sm:py-12 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            {/* Badge */}
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent-cyan/10 border border-accent-cyan/20 mb-5">
+              <Sparkles className="w-3.5 h-3.5 text-accent-cyan" />
+              <span className="text-xs font-semibold text-accent-cyan tracking-wide">
+                SORTEO ACTIVO
+              </span>
+            </div>
+
+            {/* Title */}
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-text-primary mb-3 tracking-tight">
+              Rifa de{' '}
+              <span className="gradient-text">Automóvil</span>
+            </h1>
+
+            <p className="text-text-secondary text-sm sm:text-base max-w-md mx-auto mb-6 leading-relaxed">
+              Participa por la oportunidad de ganar un auto. Solo {TOTAL_TICKETS} boletos
+              disponibles.
+            </p>
+
+            {/* Prize cards */}
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-8">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+                className="glass rounded-xl px-4 py-3 flex items-center gap-2.5"
+              >
+                <div className="w-9 h-9 rounded-lg bg-accent-cyan/15 flex items-center justify-center">
+                  <DollarSign className="w-5 h-5 text-accent-cyan" />
+                </div>
+                <div className="text-left">
+                  <p className="text-lg sm:text-xl font-bold text-text-primary">
+                    ${TICKET_PRICE.toLocaleString('es-MX')}
+                  </p>
+                  <p className="text-[10px] text-text-muted font-medium uppercase tracking-wider">
+                    Por boleto
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+                className="glass rounded-xl px-4 py-3 flex items-center gap-2.5"
+              >
+                <div className="w-9 h-9 rounded-lg bg-accent-purple/15 flex items-center justify-center">
+                  <Car className="w-5 h-5 text-accent-purple" />
+                </div>
+                <div className="text-left">
+                  <p className="text-lg sm:text-xl font-bold text-text-primary">
+                    1 Auto
+                  </p>
+                  <p className="text-[10px] text-text-muted font-medium uppercase tracking-wider">
+                    Premio
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Documentation
-          </a>
-        </div>
+            <StatsBar />
+          </motion.div>
+        </section>
+
+        {/* Ticket Grid */}
+        <section className="pb-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <h2 className="text-base font-bold text-text-primary">Selecciona tu boleto</h2>
+              <div className="flex-1 h-px bg-border-subtle" />
+            </div>
+
+            {isLoading ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <Loader2 className="w-8 h-8 text-accent-cyan animate-spin" />
+                <p className="text-sm text-text-muted">Cargando boletos...</p>
+              </div>
+            ) : error ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <p className="text-sm text-red-400">{error}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="text-xs text-accent-cyan hover:underline"
+                >
+                  Reintentar
+                </button>
+              </div>
+            ) : (
+              <TicketGrid onTicketSelect={handleTicketSelect} />
+            )}
+          </motion.div>
+        </section>
+
+        {/* Info Section */}
+        <motion.section
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="glass rounded-2xl p-5 sm:p-6"
+        >
+          <h3 className="text-sm font-bold text-text-primary mb-3">¿Cómo funciona?</h3>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {[
+              {
+                step: '1',
+                title: 'Elige tu boleto',
+                description: 'Selecciona un número disponible del grid',
+              },
+              {
+                step: '2',
+                title: 'Llena tus datos',
+                description: 'Ingresa tu nombre y WhatsApp para apartarlo',
+              },
+              {
+                step: '3',
+                title: 'Realiza el pago',
+                description: 'Te contactaremos por WhatsApp para confirmar',
+              },
+            ].map((item, i) => (
+              <div key={i} className="flex gap-3">
+                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-cyan/20 to-accent-purple/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xs font-bold gradient-text">{item.step}</span>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-text-primary">{item.title}</p>
+                  <p className="text-xs text-text-muted mt-0.5">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.section>
       </main>
-    </div>
+
+      {/* Reservation Modal */}
+      <ReservationModal
+        ticket={selectedTicket}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
+    </>
   );
 }
