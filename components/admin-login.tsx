@@ -8,7 +8,7 @@ interface AdminLoginProps {
   onAuthenticate: () => void;
 }
 
-const ADMIN_PASSWORD = 'rifa2025';
+const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'rifa2025';
 
 export default function AdminLogin({ onAuthenticate }: AdminLoginProps) {
   const [password, setPassword] = useState('');
@@ -99,9 +99,7 @@ export default function AdminLogin({ onAuthenticate }: AdminLoginProps) {
             </button>
           </form>
 
-          <p className="text-[10px] text-text-muted text-center mt-4">
-            Contraseña demo: <code className="text-accent-cyan/70">rifa2025</code>
-          </p>
+
         </div>
       </motion.div>
     </div>
