@@ -143,8 +143,8 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                   </div>
 
                   {/* Selected ticket display */}
-                  <div className="flex items-center gap-4 p-4 rounded-xl bg-accent-cyan/5 border border-accent-cyan/20 mb-6">
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent-cyan to-accent-purple flex items-center justify-center flex-shrink-0">
+                  <div className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] backdrop-blur-md border border-white/10 shadow-lg mb-6">
+                    <div className="w-14 h-14 rounded-xl bg-white/[0.05] border border-white/20 flex items-center justify-center flex-shrink-0">
                       <span className="text-xl font-bold text-white ticket-number">
                         {ticket.number}
                       </span>
@@ -153,7 +153,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                       <p className="text-sm font-semibold text-text-primary">
                         Boleto #{ticket.number}
                       </p>
-                      <p className="text-2xl font-bold gradient-text">
+                      <p className="text-2xl font-bold gradient-text drop-shadow-md">
                         ${TICKET_PRICE.toLocaleString('es-MX')} MXN
                       </p>
                     </div>
@@ -174,8 +174,8 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                           placeholder="Ej: María García López"
                           value={formData.name}
                           onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                          className={`w-full pl-10 pr-4 py-3 bg-bg-elevated border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
-                            errors.name ? 'border-red-500/50' : 'border-border-subtle'
+                          className={`w-full pl-10 pr-4 py-3 bg-white/[0.02] backdrop-blur-sm border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
+                            errors.name ? 'border-red-500/50' : 'border-white/10'
                           }`}
                         />
                       </div>
@@ -203,8 +203,8 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                           placeholder="Ej: 33 1234 5678"
                           value={formData.whatsapp}
                           onChange={e => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
-                          className={`w-full pl-10 pr-4 py-3 bg-bg-elevated border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
-                            errors.whatsapp ? 'border-red-500/50' : 'border-border-subtle'
+                          className={`w-full pl-10 pr-4 py-3 bg-white/[0.02] backdrop-blur-sm border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
+                            errors.whatsapp ? 'border-red-500/50' : 'border-white/10'
                           }`}
                         />
                       </div>
@@ -223,7 +223,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 rounded-xl bg-gradient-to-r from-accent-cyan to-accent-purple text-white font-semibold text-sm shadow-lg shadow-accent-cyan/20 hover:shadow-accent-cyan/30 hover:brightness-110 active:scale-[0.98] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full py-3.5 rounded-xl bg-white/[0.05] backdrop-blur-md border border-accent-cyan/40 text-accent-cyan-light font-bold text-sm hover:bg-accent-cyan/10 hover:border-accent-cyan-light hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:text-white active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {isSubmitting ? (
                         <>

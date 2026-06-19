@@ -24,13 +24,13 @@ export default function TicketGrid({ onTicketSelect }: TicketGridProps) {
       {/* Legend */}
       <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mb-6">
         <div className="flex items-center gap-2">
-          <div className="w-3.5 h-3.5 rounded-md border border-accent-cyan/50 bg-accent-cyan/10" />
+          <div className="w-3.5 h-3.5 rounded-md border border-white/20 bg-white/[0.05]" />
           <span className="text-xs text-text-secondary">
             Disponible <span className="text-text-muted">({counts.available})</span>
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3.5 h-3.5 rounded-md border border-status-reserved/50 bg-status-reserved/10" />
+          <div className="w-3.5 h-3.5 rounded-md border border-status-reserved/40 bg-status-reserved/10" />
           <span className="text-xs text-text-secondary">
             Apartado <span className="text-text-muted">({counts.reserved})</span>
           </span>

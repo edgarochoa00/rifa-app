@@ -23,9 +23,9 @@ export default function TicketCell({ ticket, onClick, index }: TicketCellProps) 
   const baseClasses = 'relative aspect-square rounded-xl flex items-center justify-center ticket-number text-sm font-semibold transition-all duration-200 select-none';
 
   const statusClasses = isAvailable
-    ? 'bg-bg-elevated/60 border border-accent-cyan/25 text-accent-cyan-light cursor-pointer hover:bg-accent-cyan/10 hover:border-accent-cyan/50 hover:shadow-[0_0_16px_rgba(6,182,212,0.2)] active:scale-95'
+    ? 'bg-white/[0.03] border border-white/10 text-text-primary/90 cursor-pointer hover:bg-accent-cyan/10 hover:border-accent-cyan/40 hover:text-accent-cyan-light hover:shadow-[0_0_20px_rgba(6,182,212,0.25)] active:scale-95'
     : isReserved
-    ? 'bg-status-reserved/10 border border-status-reserved/30 text-status-reserved cursor-default'
+    ? 'bg-status-reserved/10 border border-status-reserved/20 text-status-reserved/80 cursor-default'
     : 'bg-accent-purple/10 border border-accent-purple/20 text-accent-purple/60 cursor-default';
 
   return (
