@@ -6,6 +6,7 @@ import { Sparkles, Car, DollarSign, Loader2 } from 'lucide-react';
 import Header from '@/components/header';
 import StatsBar from '@/components/stats-bar';
 import TicketGrid from '@/components/ticket-grid';
+import CarGallery from '@/components/car-gallery';
 import ReservationModal from '@/components/reservation-modal';
 import { Ticket, TICKET_PRICE, TOTAL_TICKETS } from '@/lib/types';
 import { useRifa } from '@/lib/rifa-context';
@@ -47,12 +48,12 @@ export default function HomePage() {
 
             {/* Title */}
             <h1 className="text-3xl sm:text-5xl font-extrabold text-text-primary mb-3 tracking-tight">
-              Rifa de{' '}
-              <span className="gradient-text">Automóvil</span>
+              Rifa{' '}
+              <span className="gradient-text">Ford LTD Crown Victoria</span>
             </h1>
 
             <p className="text-text-secondary text-sm sm:text-base max-w-md mx-auto mb-6 leading-relaxed">
-              Participa por la oportunidad de ganar un auto. Solo {TOTAL_TICKETS} boletos
+              Participa por la oportunidad de ganar este clásico americano. Solo {TOTAL_TICKETS} boletos
               disponibles.
             </p>
 
@@ -88,10 +89,10 @@ export default function HomePage() {
                 </div>
                 <div className="text-left">
                   <p className="text-lg sm:text-xl font-bold text-text-primary">
-                    1 Auto
+                    Ford LTD
                   </p>
                   <p className="text-[10px] text-text-muted font-medium uppercase tracking-wider">
-                    Premio
+                    Crown Victoria
                   </p>
                 </div>
               </motion.div>
@@ -107,6 +108,9 @@ export default function HomePage() {
             <StatsBar />
           </motion.div>
         </section>
+
+        {/* Car Gallery & Specs */}
+        <CarGallery />
 
         {/* Ticket Grid */}
         <section className="pb-8">

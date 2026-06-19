@@ -16,13 +16,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rifa Auto 2025 — Boletos a $750 MXN",
+  title: "Rifa Ford LTD Crown Victoria — Boletos a $500 MXN",
   description:
-    "Participa en la rifa de un automóvil. 107 boletos disponibles a solo $750 MXN cada uno. Aparta tu boleto ahora.",
-  keywords: ["rifa", "auto", "boleto", "sorteo", "750", "MXN"],
+    "Participa en la rifa de un Ford LTD Crown Victoria clásico. 161 boletos disponibles a solo $500 MXN cada uno. Aparta tu boleto ahora.",
+  keywords: ["rifa", "auto", "ford", "ltd", "crown victoria", "boleto", "sorteo", "500", "MXN"],
   openGraph: {
-    title: "Rifa Auto 2025 — ¡Gana un auto!",
-    description: "107 boletos a $750 MXN. Aparta el tuyo ahora.",
+    title: "Rifa Ford LTD Crown Victoria — ¡Gana un clásico!",
+    description: "161 boletos a $500 MXN. Aparta el tuyo ahora.",
     type: "website",
   },
 };

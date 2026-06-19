@@ -13,10 +13,10 @@ export default function Header() {
           </div>
           <div>
             <h1 className="text-base font-bold text-text-primary leading-tight tracking-tight">
-              Rifa Auto
+              Rifa Ford LTD
             </h1>
             <p className="text-[10px] text-text-muted font-medium uppercase tracking-widest">
-              107 Boletos
+              161 Boletos
             </p>
           </div>
         </Link>

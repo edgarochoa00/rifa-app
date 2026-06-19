@@ -23,5 +23,5 @@ export interface FinancialSummary {
   ticketPrice: number;
 }
 
-export const TICKET_PRICE = 750;
-export const TOTAL_TICKETS = 107;
+export const TICKET_PRICE = 500;
+export const TOTAL_TICKETS = 161;

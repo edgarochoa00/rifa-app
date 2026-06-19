@@ -179,6 +179,6 @@ export async function seedTickets(): Promise<void> {
     await batch.commit();
     console.log(`✅ Seeded ${added} tickets in Firestore`);
   } else {
-    console.log('ℹ️ All 107 tickets already exist in Firestore');
+    console.log(`ℹ️ All ${TOTAL_TICKETS} tickets already exist in Firestore`);
   }
 }
