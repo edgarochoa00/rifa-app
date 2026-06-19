@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Car, DollarSign, Loader2 } from 'lucide-react';
+import { Car, DollarSign, Loader2 } from 'lucide-react';
 import Header from '@/components/header';
 import StatsBar from '@/components/stats-bar';
 import TicketGrid from '@/components/ticket-grid';
@@ -38,13 +38,6 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {/* Badge */}
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent-cyan/10 border border-accent-cyan/20 mb-5">
-              <Sparkles className="w-3.5 h-3.5 text-accent-cyan" />
-              <span className="text-xs font-semibold text-accent-cyan tracking-wide">
-                SORTEO ACTIVO
-              </span>
-            </div>
 
             {/* Title */}
             <h1 className="text-3xl sm:text-5xl font-extrabold text-text-primary mb-3 tracking-tight">
