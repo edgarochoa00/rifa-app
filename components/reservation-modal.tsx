@@ -14,7 +14,7 @@ interface ReservationModalProps {
 
 export default function ReservationModal({ ticket, isOpen, onClose }: ReservationModalProps) {
   const { reserveTicket } = useRifa();
-  const [formData, setFormData] = useState<ReservationFormData>({ name: '', whatsapp: '' });
+  const [formData, setFormData] = useState<ReservationFormData>({ firstName: '', lastName: '', whatsapp: '' });
   const [errors, setErrors] = useState<Partial<ReservationFormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -22,7 +22,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
   // Reset form when modal opens
   useEffect(() => {
     if (isOpen) {
-      setFormData({ name: '', whatsapp: '' });
+      setFormData({ firstName: '', lastName: '', whatsapp: '' });
       setErrors({});
       setIsSubmitting(false);
       setShowSuccess(false);
@@ -43,13 +43,17 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
 
   const validate = (): boolean => {
     const newErrors: Partial<ReservationFormData> = {};
-    if (!formData.name.trim() || formData.name.trim().length < 3) {
-      newErrors.name = 'Ingresa tu nombre completo';
+    if (!formData.firstName.trim() || formData.firstName.trim().length < 2) {
+      newErrors.firstName = 'Ingresa tu nombre(s)';
     }
-    // Basic phone validation: at least 10 digits
+    if (!formData.lastName.trim() || formData.lastName.trim().length < 2) {
+      newErrors.lastName = 'Ingresa tus apellidos';
+    }
+    
+    // Strict phone validation: exactly 10 digits
     const digits = formData.whatsapp.replace(/\D/g, '');
-    if (digits.length < 10) {
-      newErrors.whatsapp = 'Ingresa un número de WhatsApp válido (10 dígitos)';
+    if (digits.length !== 10) {
+      newErrors.whatsapp = 'Debe ser exactamente 10 dígitos';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -69,7 +73,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
         onClose();
       }, 2000);
     } else {
-      setErrors({ name: result.error || 'Este boleto ya fue apartado por alguien más' });
+      setErrors({ firstName: result.error || 'Este boleto ya fue apartado por alguien más' });
       setIsSubmitting(false);
     }
   };
@@ -161,33 +165,62 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
 
                   {/* Form */}
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Name field */}
-                    <div>
-                      <label htmlFor="reservation-name" className="block text-xs font-medium text-text-secondary mb-1.5 uppercase tracking-wider">
-                        Nombre completo
-                      </label>
-                      <div className="relative">
-                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
-                        <input
-                          id="reservation-name"
-                          type="text"
-                          placeholder="Ej: María García López"
-                          value={formData.name}
-                          onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                          className={`w-full pl-10 pr-4 py-3 bg-white/[0.02] backdrop-blur-sm border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
-                            errors.name ? 'border-red-500/50' : 'border-white/10'
-                          }`}
-                        />
+                    {/* Name fields */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label htmlFor="reservation-firstname" className="block text-xs font-medium text-text-secondary mb-1.5 uppercase tracking-wider">
+                          Nombre(s)
+                        </label>
+                        <div className="relative">
+                          <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+                          <input
+                            id="reservation-firstname"
+                            type="text"
+                            placeholder="Ej: María"
+                            value={formData.firstName}
+                            onChange={e => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
+                            className={`w-full pl-10 pr-3 py-3 bg-white/[0.02] backdrop-blur-sm border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
+                              errors.firstName ? 'border-red-500/50' : 'border-white/10'
+                            }`}
+                          />
+                        </div>
+                        {errors.firstName && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-[10px] text-red-400 mt-1.5 leading-tight"
+                          >
+                            {errors.firstName}
+                          </motion.p>
+                        )}
                       </div>
-                      {errors.name && (
-                        <motion.p
-                          initial={{ opacity: 0, y: -4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="text-xs text-red-400 mt-1.5"
-                        >
-                          {errors.name}
-                        </motion.p>
-                      )}
+                      
+                      <div>
+                        <label htmlFor="reservation-lastname" className="block text-xs font-medium text-text-secondary mb-1.5 uppercase tracking-wider">
+                          Apellidos
+                        </label>
+                        <div className="relative">
+                          <input
+                            id="reservation-lastname"
+                            type="text"
+                            placeholder="Ej: García López"
+                            value={formData.lastName}
+                            onChange={e => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
+                            className={`w-full px-3 py-3 bg-white/[0.02] backdrop-blur-sm border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
+                              errors.lastName ? 'border-red-500/50' : 'border-white/10'
+                            }`}
+                          />
+                        </div>
+                        {errors.lastName && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-[10px] text-red-400 mt-1.5 leading-tight"
+                          >
+                            {errors.lastName}
+                          </motion.p>
+                        )}
+                      </div>
                     </div>
 
                     {/* WhatsApp field */}
@@ -200,9 +233,13 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                         <input
                           id="reservation-whatsapp"
                           type="tel"
-                          placeholder="Ej: 33 1234 5678"
+                          maxLength={10}
+                          placeholder="Ej: 3312345678"
                           value={formData.whatsapp}
-                          onChange={e => setFormData(prev => ({ ...prev, whatsapp: e.target.value }))}
+                          onChange={e => {
+                            const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
+                            setFormData(prev => ({ ...prev, whatsapp: digitsOnly }));
+                          }}
                           className={`w-full pl-10 pr-4 py-3 bg-white/[0.02] backdrop-blur-sm border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
                             errors.whatsapp ? 'border-red-500/50' : 'border-white/10'
                           }`}
@@ -212,7 +249,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                         <motion.p
                           initial={{ opacity: 0, y: -4 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="text-xs text-red-400 mt-1.5"
+                          className="text-[10px] text-red-400 mt-1.5 leading-tight"
                         >
                           {errors.whatsapp}
                         </motion.p>

@@ -72,7 +72,7 @@ export async function reserveTicketInFirestore(
 
       transaction.update(ticketRef, {
         status: 'reserved',
-        name: formData.name.trim(),
+        name: `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim(),
         whatsapp: formData.whatsapp.trim(),
         reservedAt: new Date().toISOString(),
       });

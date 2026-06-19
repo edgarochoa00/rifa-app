@@ -9,7 +9,8 @@ export interface Ticket {
 }
 
 export interface ReservationFormData {
-  name: string;
+  firstName: string;
+  lastName: string;
   whatsapp: string;
 }
 
