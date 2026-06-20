@@ -172,11 +172,10 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                           Nombre(s)
                         </label>
                         <div className="relative">
-                          <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+                          <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted z-10 pointer-events-none" />
                           <input
                             id="reservation-firstname"
                             type="text"
-                            placeholder="Ej: María"
                             value={formData.firstName}
                             onChange={e => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
                             className={`w-full pl-10 pr-3 py-3 bg-white/[0.02] backdrop-blur-sm border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
@@ -200,13 +199,13 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                           Apellidos
                         </label>
                         <div className="relative">
+                          <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted z-10 pointer-events-none" />
                           <input
                             id="reservation-lastname"
                             type="text"
-                            placeholder="Ej: García López"
                             value={formData.lastName}
                             onChange={e => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
-                            className={`w-full px-3 py-3 bg-white/[0.02] backdrop-blur-sm border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
+                            className={`w-full pl-10 pr-3 py-3 bg-white/[0.02] backdrop-blur-sm border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
                               errors.lastName ? 'border-red-500/50' : 'border-white/10'
                             }`}
                           />
@@ -229,7 +228,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                         WhatsApp
                       </label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted z-10 pointer-events-none" />
                         <input
                           id="reservation-whatsapp"
                           type="tel"

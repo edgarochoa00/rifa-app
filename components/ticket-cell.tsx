@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { memo } from 'react';
 import { Ticket } from '@/lib/types';
 
 interface TicketCellProps {
@@ -9,7 +9,7 @@ interface TicketCellProps {
   index: number;
 }
 
-export default function TicketCell({ ticket, onClick, index }: TicketCellProps) {
+const TicketCell = memo(function TicketCell({ ticket, onClick, index }: TicketCellProps) {
   const isAvailable = ticket.status === 'available';
   const isReserved = ticket.status === 'reserved';
   const isPaid = ticket.status === 'paid';
@@ -29,16 +29,10 @@ export default function TicketCell({ ticket, onClick, index }: TicketCellProps) 
     : 'bg-accent-purple/10 border border-accent-purple/20 text-accent-purple/60 cursor-default';
 
   return (
-    <motion.button
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{
-        duration: 0.3,
-        delay: index * 0.008,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
+    <button
       onClick={handleClick}
-      className={`${baseClasses} ${statusClasses}`}
+      className={`${baseClasses} ${statusClasses} animate-fade-in`}
+      style={{ animationDelay: `${index * 0.005}s` }}
       disabled={!isAvailable}
       aria-label={`Boleto ${ticket.number} - ${
         isAvailable ? 'Disponible' : isReserved ? 'Apartado' : 'Pagado'
@@ -62,6 +56,8 @@ export default function TicketCell({ ticket, onClick, index }: TicketCellProps) 
           <path d="M12 6v6l4 2" strokeLinecap="round" />
         </svg>
       )}
-    </motion.button>
+    </button>
   );
-}
+});
+
+export default TicketCell;
