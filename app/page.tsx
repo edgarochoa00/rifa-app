@@ -40,9 +40,16 @@ export default function HomePage() {
           >
 
             {/* Title */}
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-text-primary mb-3 tracking-tight">
-              Rifa{' '}
-              <span className="gradient-text">Ford LTD Crown Victoria</span>
+            <h1 className="font-fancy mb-6 tracking-[0.25em] drop-shadow-[0_4px_12px_rgba(255,255,255,0.05)] flex flex-col items-center justify-center gap-2 sm:gap-3 uppercase">
+              <span className="text-3xl sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-teal-50 via-slate-200 to-purple-200 select-none">
+                RIFA
+              </span>
+              <span className="text-4xl sm:text-5xl flex flex-wrap justify-center gap-x-4 text-transparent bg-clip-text bg-gradient-to-r from-teal-50 via-slate-200 to-purple-200 select-none">
+                <span>Ford</span>
+                <span>LTD</span>
+                <span>Crown</span>
+                <span>Victoria</span>
+              </span>
             </h1>
 
             <p className="text-text-secondary text-sm sm:text-base max-w-md mx-auto mb-6 leading-relaxed">

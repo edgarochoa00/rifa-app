@@ -37,18 +37,11 @@ export default function StatsBar() {
       bgColor: 'bg-white/[0.02] backdrop-blur-md shadow-lg',
       borderColor: 'border-status-reserved/20',
     },
-    {
-      label: 'Pagados',
-      value: summary.paidCount,
-      color: 'text-accent-purple-light',
-      bgColor: 'bg-white/[0.02] backdrop-blur-md shadow-lg',
-      borderColor: 'border-accent-purple/20',
-    },
   ];
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-3 gap-2 sm:gap-3">
+      <div className="grid grid-cols-2 gap-2 sm:gap-3">
         {stats.map((stat, i) => (
           <motion.div
             key={stat.label}
