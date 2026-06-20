@@ -1,23 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { Settings, Ticket } from 'lucide-react';
+import { Settings, Mountain } from 'lucide-react';
 
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 glass-strong">
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-cyan to-accent-purple flex items-center justify-center shadow-lg group-hover:shadow-accent-cyan/20 transition-shadow duration-300">
-            <Ticket className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-base font-bold text-text-primary leading-tight tracking-tight">
-              Rifa Ford LTD
-            </h1>
-            <p className="text-[10px] text-text-muted font-medium uppercase tracking-widest">
-              161 Boletos
-            </p>
+          <div className="w-10 h-10 rounded-xl glass bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_15px_rgba(34,211,238,0.4)] group-hover:bg-gradient-to-br group-hover:from-cyan-500/30 group-hover:to-purple-500/30 transition-all duration-300">
+            <Mountain className="w-6 h-6 text-white drop-shadow-md" />
           </div>
         </Link>
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Alfa_Slab_One } from "next/font/google";
 import "./globals.css";
 import { RifaProvider } from "@/lib/rifa-context";
 
@@ -11,6 +11,13 @@ const inter = Inter({
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const alfaSlabOne = Alfa_Slab_One({
+  variable: "--font-fancy",
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -33,10 +40,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="es"
-      className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
-    >
+      <html
+        lang="es"
+        className={`${inter.variable} ${jetbrainsMono.variable} ${alfaSlabOne.variable} antialiased`}
+      >
       <body className="min-h-dvh bg-mesh font-sans">
         <RifaProvider>{children}</RifaProvider>
       </body>
