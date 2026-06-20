@@ -41,10 +41,10 @@ export default function HomePage() {
 
             {/* Title */}
             <h1 className="font-fancy mb-6 tracking-[0.25em] drop-shadow-[0_4px_12px_rgba(255,255,255,0.05)] flex flex-col items-center justify-center gap-2 sm:gap-3 uppercase">
-              <span className="text-3xl sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-teal-50 via-slate-200 to-purple-200 select-none">
+              <span className="text-lg sm:text-xl text-transparent bg-clip-text bg-gradient-to-r from-teal-50 via-slate-200 to-purple-200 select-none">
                 RIFA
               </span>
-              <span className="text-4xl sm:text-5xl flex flex-wrap justify-center gap-x-4 text-transparent bg-clip-text bg-gradient-to-r from-teal-50 via-slate-200 to-purple-200 select-none">
+              <span className="text-xl sm:text-2xl flex flex-wrap justify-center gap-x-4 text-transparent bg-clip-text bg-gradient-to-r from-teal-50 via-slate-200 to-purple-200 select-none">
                 <span>Ford</span>
                 <span>LTD</span>
                 <span>Crown</span>
