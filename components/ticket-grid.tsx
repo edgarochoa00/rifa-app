@@ -35,12 +35,6 @@ export default function TicketGrid({ onTicketSelect }: TicketGridProps) {
             Apartado <span className="text-text-muted">({counts.reserved})</span>
           </span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3.5 h-3.5 rounded-md border border-accent-purple/40 bg-accent-purple/10" />
-          <span className="text-xs text-text-secondary">
-            Pagado <span className="text-text-muted">({counts.paid})</span>
-          </span>
-        </div>
       </div>
 
       {/* Grid */}
