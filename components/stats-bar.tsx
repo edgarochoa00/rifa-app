@@ -70,12 +70,9 @@ export default function StatsBar() {
             style={{ width: isLoading ? '0%' : `${progressPercent}%` }}
           />
         </div>
-        <div className="flex items-center justify-between mt-2">
+        <div className="flex items-center justify-center mt-2">
           <span className="text-[10px] text-text-muted">
-            {isLoading ? '—' : `${summary.paidCount + summary.reservedCount} de ${summary.totalTickets} boletos`}
-          </span>
-          <span className="text-[10px] text-text-muted">
-            {isLoading ? '—' : `$${(summary.totalCollected).toLocaleString('es-MX')} recaudado`}
+            {isLoading ? '—' : `${summary.paidCount + summary.reservedCount} de ${summary.totalTickets} boletos apartados o pagados`}
           </span>
         </div>
       </div>
