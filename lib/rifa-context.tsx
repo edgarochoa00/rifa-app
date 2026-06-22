@@ -22,7 +22,12 @@ interface RifaContextType {
 const RifaContext = createContext<RifaContextType | undefined>(undefined);
 
 export function RifaProvider({ children }: { children: React.ReactNode }) {
-  const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [tickets, setTickets] = useState<Ticket[]>(() => 
+    Array.from({ length: TOTAL_TICKETS }, (_, i) => ({
+      number: i + 1,
+      status: 'available',
+    }))
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const seeded = useRef(false);

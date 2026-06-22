@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Car, DollarSign, Loader2 } from 'lucide-react';
+import { Car, DollarSign } from 'lucide-react';
 import Header from '@/components/header';
 import StatsBar from '@/components/stats-bar';
 import TicketGrid from '@/components/ticket-grid';
@@ -11,7 +11,7 @@ import { Ticket, TICKET_PRICE, TOTAL_TICKETS } from '@/lib/types';
 import { useRifa } from '@/lib/rifa-context';
 
 export default function HomePage() {
-  const { isLoading, error } = useRifa();
+  const { error } = useRifa();
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -101,12 +101,7 @@ export default function HomePage() {
               <div className="flex-1 h-px bg-border-subtle" />
             </div>
 
-            {isLoading ? (
-              <div className="flex flex-col items-center justify-center py-16 gap-3">
-                <Loader2 className="w-8 h-8 text-accent-cyan animate-spin" />
-                <p className="text-sm text-text-muted">Cargando boletos...</p>
-              </div>
-            ) : error ? (
+            {error ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <p className="text-sm text-red-400">{error}</p>
                 <button
