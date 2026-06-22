@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Car, DollarSign, Loader2 } from 'lucide-react';
 import Header from '@/components/header';
 import StatsBar from '@/components/stats-bar';
@@ -33,11 +32,7 @@ export default function HomePage() {
       <main className="max-w-5xl mx-auto px-4 pb-12">
         {/* Hero Section */}
         <section className="py-8 sm:py-12 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
 
             {/* Title */}
             <h1 className="font-fancy mb-6 tracking-[0.25em] drop-shadow-[0_4px_12px_rgba(255,255,255,0.05)] flex flex-col items-center justify-center gap-2 sm:gap-3 uppercase">
@@ -59,12 +54,7 @@ export default function HomePage() {
 
             {/* Prize cards */}
             <div className="flex items-center justify-center gap-3 sm:gap-4 mb-8">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="glass rounded-xl px-4 py-3 flex items-center gap-2.5"
-              >
+              <div className="glass rounded-xl px-4 py-3 flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-lg bg-accent-cyan/15 flex items-center justify-center">
                   <DollarSign className="w-5 h-5 text-accent-cyan" />
                 </div>
@@ -76,14 +66,9 @@ export default function HomePage() {
                     Por boleto
                   </p>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="glass rounded-xl px-4 py-3 flex items-center gap-2.5"
-              >
+              <div className="glass rounded-xl px-4 py-3 flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-lg bg-accent-purple/15 flex items-center justify-center">
                   <Car className="w-5 h-5 text-accent-purple" />
                 </div>
@@ -95,18 +80,14 @@ export default function HomePage() {
                     Crown Victoria
                   </p>
                 </div>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          <div>
             <StatsBar />
-          </motion.div>
+          </div>
         </section>
 
         {/* Car Gallery & Specs */}
@@ -114,11 +95,7 @@ export default function HomePage() {
 
         {/* Ticket Grid */}
         <section className="pb-8">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
+          <div>
             <div className="flex items-center gap-2 mb-4">
               <h2 className="text-base font-bold text-text-primary">Selecciona tu boleto</h2>
               <div className="flex-1 h-px bg-border-subtle" />
@@ -142,16 +119,11 @@ export default function HomePage() {
             ) : (
               <TicketGrid onTicketSelect={handleTicketSelect} />
             )}
-          </motion.div>
+          </div>
         </section>
 
         {/* Info Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="glass rounded-2xl p-5 sm:p-6"
-        >
+        <section className="glass rounded-2xl p-5 sm:p-6">
           <h3 className="text-sm font-bold text-text-primary mb-3">¿Cómo funciona?</h3>
           <div className="grid sm:grid-cols-3 gap-4">
             {[
@@ -182,7 +154,7 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-        </motion.section>
+        </section>
       </main>
 
       {/* Reservation Modal */}
