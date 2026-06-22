@@ -58,7 +58,7 @@ export default function TicketGrid({ onTicketSelect }: TicketGridProps) {
           <input
             type="tel"
             maxLength={10}
-            placeholder="Ingresa tu WhatsApp para ver tus boletos apartados"
+            placeholder="Tu WhatsApp para ver boletos"
             value={searchWhatsapp}
             onChange={e => {
               const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
