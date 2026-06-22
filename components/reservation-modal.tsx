@@ -91,7 +91,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-black/60 overlay-blur"
+            className="fixed inset-0 z-50 bg-black/80"
           />
 
           {/* Bottom Sheet (mobile) / Modal (desktop) */}
@@ -102,7 +102,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
             transition={{ type: 'spring', damping: 28, stiffness: 300 }}
             className="fixed bottom-0 left-0 right-0 z-50 sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:max-w-md sm:w-[calc(100%-2rem)] sm:rounded-2xl"
           >
-            <div className="glass-strong rounded-t-3xl sm:rounded-2xl overflow-hidden">
+            <div className="bg-[#0B0B13] border border-white/10 shadow-2xl rounded-t-3xl sm:rounded-2xl overflow-hidden">
               {/* Drag handle (mobile) */}
               <div className="flex justify-center pt-3 pb-1 sm:hidden">
                 <div className="w-10 h-1 bg-text-muted/30 rounded-full" />
@@ -147,7 +147,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                   </div>
 
                   {/* Selected ticket display */}
-                  <div className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] backdrop-blur-md border border-white/10 shadow-lg mb-6">
+                  <div className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/10 shadow-lg mb-6">
                     <div className="w-14 h-14 rounded-xl bg-white/[0.05] border border-white/20 flex items-center justify-center flex-shrink-0">
                       <span className="text-xl font-bold text-white ticket-number">
                         {ticket.number}
@@ -178,7 +178,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                             type="text"
                             value={formData.firstName}
                             onChange={e => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
-                            className={`w-full pl-10 pr-3 py-3 bg-white/[0.02] backdrop-blur-sm border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
+                            className={`w-full pl-10 pr-3 py-3 bg-white/[0.03] border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
                               errors.firstName ? 'border-red-500/50' : 'border-white/10'
                             }`}
                           />
@@ -205,7 +205,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                             type="text"
                             value={formData.lastName}
                             onChange={e => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
-                            className={`w-full pl-10 pr-3 py-3 bg-white/[0.02] backdrop-blur-sm border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
+                            className={`w-full pl-10 pr-3 py-3 bg-white/[0.03] border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
                               errors.lastName ? 'border-red-500/50' : 'border-white/10'
                             }`}
                           />
@@ -239,7 +239,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                             const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
                             setFormData(prev => ({ ...prev, whatsapp: digitsOnly }));
                           }}
-                          className={`w-full pl-10 pr-4 py-3 bg-white/[0.02] backdrop-blur-sm border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
+                          className={`w-full pl-10 pr-4 py-3 bg-white/[0.03] border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
                             errors.whatsapp ? 'border-red-500/50' : 'border-white/10'
                           }`}
                         />
@@ -259,7 +259,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 rounded-xl bg-white/[0.05] backdrop-blur-md border border-accent-cyan/40 text-accent-cyan-light font-bold text-sm hover:bg-accent-cyan/10 hover:border-accent-cyan-light hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:text-white active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full py-3.5 rounded-xl bg-white/[0.05] border border-accent-cyan/40 text-accent-cyan-light font-bold text-sm hover:bg-accent-cyan/10 hover:border-accent-cyan-light hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:text-white active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {isSubmitting ? (
                         <>
