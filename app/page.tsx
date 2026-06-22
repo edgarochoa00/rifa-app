@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Car, DollarSign } from 'lucide-react';
 import Header from '@/components/header';
 import StatsBar from '@/components/stats-bar';
@@ -15,15 +15,15 @@ export default function HomePage() {
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleTicketSelect = (ticket: Ticket) => {
+  const handleTicketSelect = useCallback((ticket: Ticket) => {
     setSelectedTicket(ticket);
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
     setTimeout(() => setSelectedTicket(null), 300);
-  };
+  }, []);
 
   return (
     <>
