@@ -64,7 +64,7 @@ export default function TicketGrid({ onTicketSelect }: TicketGridProps) {
               const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
               setSearchWhatsapp(digitsOnly);
             }}
-            className="w-full pl-10 pr-10 py-2.5 bg-white/[0.03] border border-white/10 rounded-xl text-xs text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all"
+            className="w-full pl-10 pr-10 py-2.5 bg-white/[0.03] border border-white/10 rounded-xl text-[10px] text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all"
           />
           {searchWhatsapp && (
             <button
