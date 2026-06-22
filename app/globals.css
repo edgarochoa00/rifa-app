@@ -80,6 +80,13 @@ body {
   background: var(--bg-primary);
 }
 
+/* Prevent iOS auto-zoom on input focus (requires >= 16px) */
+@media screen and (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
 .bg-mesh::before {
   content: '';
   position: fixed;
