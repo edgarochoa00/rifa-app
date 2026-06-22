@@ -72,7 +72,7 @@ export default function StatsBar() {
         </div>
         <div className="flex items-center justify-center mt-2">
           <span className="text-[10px] text-text-muted">
-            {isLoading ? '—' : `${summary.paidCount + summary.reservedCount} de ${summary.totalTickets} boletos apartados o pagados`}
+            {isLoading ? '—' : `${summary.paidCount + summary.reservedCount} de ${summary.totalTickets} boletos apartados`}
           </span>
         </div>
       </div>
