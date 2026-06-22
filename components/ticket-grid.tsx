@@ -11,7 +11,7 @@ interface TicketGridProps {
 }
 
 export default function TicketGrid({ onTicketSelect }: TicketGridProps) {
-  const { tickets } = useRifa();
+  const { tickets, isLoading } = useRifa();
   const [searchWhatsapp, setSearchWhatsapp] = useState('');
 
   const counts = useMemo(() => {
@@ -40,13 +40,13 @@ export default function TicketGrid({ onTicketSelect }: TicketGridProps) {
         <div className="flex items-center gap-2">
           <div className="w-3.5 h-3.5 rounded-md border border-white/20 bg-white/[0.05]" />
           <span className="text-xs text-text-secondary">
-            Disponible <span className="text-text-muted">({counts.available})</span>
+            Disponible <span className="text-text-muted">({isLoading ? '—' : counts.available})</span>
           </span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3.5 h-3.5 rounded-md border border-status-reserved/40 bg-status-reserved/10" />
           <span className="text-xs text-text-secondary">
-            Apartado <span className="text-text-muted">({counts.reserved})</span>
+            Apartado <span className="text-text-muted">({isLoading ? '—' : counts.reserved})</span>
           </span>
         </div>
       </div>
