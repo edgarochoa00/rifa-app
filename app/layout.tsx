@@ -31,6 +31,20 @@ export const metadata: Metadata = {
     title: "Rifa Ford LTD Crown Victoria — ¡Gana un clásico!",
     description: "161 boletos a $500 MXN. Aparta el tuyo ahora.",
     type: "website",
+    images: [
+      {
+        url: "/auto/principal.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Ford LTD Crown Victoria Clásico",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rifa Ford LTD Crown Victoria — ¡Gana un clásico!",
+    description: "161 boletos a $500 MXN. Aparta el tuyo ahora.",
+    images: ["/auto/principal.jpeg"],
   },
 };
 
