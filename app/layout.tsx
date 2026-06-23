@@ -23,6 +23,7 @@ const alfaSlabOne = Alfa_Slab_One({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://rifa-app-psi-beryl.vercel.app"),
   title: "Rifa Ford LTD Crown Victoria — Boletos a $500 MXN",
   description:
     "Participa en la rifa de un Ford LTD Crown Victoria clásico. 161 boletos disponibles a solo $500 MXN cada uno. Aparta tu boleto ahora.",
