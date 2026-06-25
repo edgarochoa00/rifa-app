@@ -49,10 +49,15 @@ export default function HomePage() {
               </span>
             </h1>
 
-            <p className="text-text-secondary text-sm sm:text-base max-w-md mx-auto mb-6 leading-relaxed">
-              Participa por la oportunidad de ganar este clásico americano. Solo {TOTAL_TICKETS} boletos
-              disponibles.
-            </p>
+            <div className="mb-6">
+              <p className="text-text-secondary text-sm sm:text-base max-w-md mx-auto mb-3 leading-relaxed">
+                Participa por la oportunidad de ganar este clásico americano. Solo {TOTAL_TICKETS} boletos
+                disponibles.
+              </p>
+              <p className="inline-block text-accent-cyan text-xs sm:text-sm font-medium bg-accent-cyan/10 border border-accent-cyan/20 py-1.5 px-4 rounded-full">
+                Del 25 de junio al 15 de agosto de 2026
+              </p>
+            </div>
 
             {/* Prize cards */}
             <div className="flex items-center justify-center gap-3 sm:gap-4 mb-8">
