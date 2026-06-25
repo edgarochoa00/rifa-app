@@ -29,7 +29,7 @@ const GALLERY_IMAGES = [
 ];
 
 const CAR_SPECS = [
-  { icon: Car, label: 'Modelo', value: 'Ford LTD Crown Victoria' },
+  { icon: null, label: 'Modelo', value: 'Ford LTD Crown Victoria', customIcon: '/auto/icon-crown.png' },
   { icon: Calendar, label: 'Año', value: 'Modelo 82' },
   { icon: Paintbrush, label: 'Color', value: 'Blanco' },
   { icon: Armchair, label: 'Interior', value: 'Vestiduras rojas de velour' },
@@ -165,9 +165,15 @@ export default function CarGallery() {
                 transition={{ delay: 0.4 + i * 0.05 }}
                 className="flex items-start gap-2.5 bg-bg-elevated/50 rounded-xl px-3 py-2.5 border border-border-subtle/50"
               >
-                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-cyan/15 to-accent-purple/15 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <spec.icon className="w-3.5 h-3.5 text-accent-cyan" />
-                </div>
+                {spec.customIcon ? (
+                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-cyan/15 to-accent-purple/15 flex items-center justify-center flex-shrink-0 mt-0.5 overflow-hidden">
+                    <Image src={spec.customIcon} alt={spec.label} width={28} height={28} className="w-full h-full object-contain p-0.5" />
+                  </div>
+                ) : (
+                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-cyan/15 to-accent-purple/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    {spec.icon && <spec.icon className="w-3.5 h-3.5 text-accent-cyan" />}
+                  </div>
+                )}
                 <div className="min-w-0">
                   <p className="text-[10px] text-text-muted font-medium uppercase tracking-wider">
                     {spec.label}

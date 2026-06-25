@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { Car, DollarSign } from 'lucide-react';
+import { DollarSign } from 'lucide-react';
+import Image from 'next/image';
 import Header from '@/components/header';
 import StatsBar from '@/components/stats-bar';
 import TicketGrid from '@/components/ticket-grid';
@@ -69,8 +70,8 @@ export default function HomePage() {
               </div>
 
               <div className="glass rounded-xl px-4 py-3 flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-lg bg-accent-purple/15 flex items-center justify-center">
-                  <Car className="w-5 h-5 text-accent-purple" />
+                <div className="w-9 h-9 rounded-lg bg-accent-purple/15 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                  <Image src="/auto/icon-crown.png" alt="Crown Victoria" width={36} height={36} className="w-full h-full object-contain" />
                 </div>
                 <div className="text-left">
                   <p className="text-lg sm:text-xl font-bold text-text-primary">
