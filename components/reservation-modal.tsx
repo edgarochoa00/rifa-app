@@ -69,9 +69,6 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
 
     if (result.success) {
       setShowSuccess(true);
-      setTimeout(() => {
-        onClose();
-      }, 2000);
     } else {
       setErrors({ firstName: result.error || 'Este boleto ya fue apartado por alguien más' });
       setIsSubmitting(false);
@@ -125,11 +122,25 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                   <h3 className="text-xl font-bold text-text-primary mb-2">
                     ¡Boleto Apartado!
                   </h3>
-                  <p className="text-text-secondary text-sm">
-                    Tu boleto <span className="font-bold text-accent-cyan">#{ticket.number}</span> ha sido reservado.
-                    <br />
-                    Te contactaremos por WhatsApp para confirmar el pago.
+                  <p className="text-text-secondary text-sm mb-4">
+                    Tu boleto <span className="font-bold text-accent-cyan">#{ticket.number}</span> ha sido reservado con éxito.
                   </p>
+                  
+                  <div className="bg-bg-elevated border border-border-subtle rounded-xl p-4 text-left space-y-3 mb-6">
+                    <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
+                      <strong className="text-accent-cyan font-semibold">Importante:</strong> Solo se proporcionará un número de cuenta cuando se te contacte directamente por WhatsApp.
+                    </p>
+                    <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
+                      Cualquier cambio de fecha de la rifa (de ser necesario) se les avisará con tiempo.
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={onClose}
+                    className="w-full bg-accent-cyan text-bg-dark font-bold py-3 px-4 rounded-xl hover:bg-accent-cyan/90 transition-all duration-200"
+                  >
+                    Entendido
+                  </button>
                 </motion.div>
               ) : (
                 /* Form State */
