@@ -128,10 +128,10 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                   
                   <div className="bg-bg-elevated border border-border-subtle rounded-xl p-4 text-left space-y-3 mb-6">
                     <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
-                      <strong className="text-accent-cyan font-semibold">Importante:</strong> Solo se proporcionará un número de cuenta cuando se te contacte directamente por WhatsApp.
+                      <strong className="text-accent-cyan font-semibold">Importante:</strong> Solo manejamos <strong className="text-white">un único número de cuenta oficial</strong>, el cual se te proporcionará exclusivamente cuando te contactemos de manera directa por WhatsApp.
                     </p>
                     <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
-                      Cualquier cambio de fecha de la rifa (de ser necesario) se les avisará con tiempo.
+                      Cualquier cambio de fecha de la rifa (de ser necesario) se avisará con tiempo.
                     </p>
                   </div>
 
