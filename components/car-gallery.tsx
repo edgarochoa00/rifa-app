@@ -30,7 +30,7 @@ const GALLERY_IMAGES = [
 
 const CAR_SPECS = [
   { icon: Car, label: 'Modelo', value: 'Ford LTD Crown Victoria' },
-  { icon: Calendar, label: 'Año', value: 'Clásico 80s' },
+  { icon: Calendar, label: 'Año', value: 'Modelo 82' },
   { icon: Paintbrush, label: 'Color', value: 'Blanco' },
   { icon: Armchair, label: 'Interior', value: 'Vestiduras rojas de velour' },
   { icon: Fuel, label: 'Motor', value: 'V8' },

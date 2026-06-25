@@ -38,7 +38,8 @@ export function subscribeToTickets(
           reservedAt: data.reservedAt || undefined,
         };
       });
-      callback(tickets);
+      const filteredTickets = tickets.filter(t => t.number <= TOTAL_TICKETS);
+      callback(filteredTickets);
     },
     (error) => {
       console.error('Error listening to tickets:', error);
