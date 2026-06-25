@@ -51,7 +51,7 @@ export default function HomePage() {
 
             <div className="mb-6">
               <p className="text-text-secondary text-sm sm:text-base max-w-md mx-auto leading-relaxed">
-                Participa por la oportunidad de ganar este clásico americano. Solo {TOTAL_TICKETS} boletos
+                Participa por la oportunidad de ganar este auto nacional mexicano. Solo {TOTAL_TICKETS} boletos
                 disponibles.
               </p>
             </div>

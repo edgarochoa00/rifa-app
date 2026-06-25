@@ -36,7 +36,7 @@ const CAR_SPECS = [
   { icon: Armchair, label: 'Interior', value: 'Vestiduras rojas de velour' },
   { icon: Fuel, label: 'Motor', value: 'V8' },
   { icon: Settings2, label: 'Transmisión', value: 'Automática' },
-  { icon: Flag, label: 'Origen', value: 'Nacional' },
+  { icon: Flag, label: 'Origen', value: 'Nacional Mexicano' },
   { icon: Gauge, label: 'Tipo', value: 'Sedán 2 puertas' },
 ];
 
@@ -122,7 +122,7 @@ export default function CarGallery() {
               Ford LTD Crown Victoria
             </h3>
             <p className="text-xs text-white/70 font-medium drop-shadow-md">
-              Clásico Americano · Nacional
+              Nacional Mexicano
             </p>
           </div>
         </div>
