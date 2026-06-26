@@ -250,92 +250,98 @@ export default function AdminDashboard() {
                 transition={{ delay: i * 0.03 }}
                 className="px-4 py-3 hover:bg-bg-elevated/50 transition-colors"
               >
-                <div className="flex items-center gap-3">
-                  {/* Ticket number */}
-                  <div
-                    className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 font-bold text-sm ticket-number ${
-                      ticket.status === 'paid'
-                        ? 'bg-accent-purple/15 text-accent-purple-light border border-accent-purple/25'
-                        : 'bg-status-reserved/15 text-status-reserved border border-status-reserved/25'
-                    }`}
-                  >
-                    {ticket.number}
-                  </div>
-
-                  {/* Info */}
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-text-primary truncate">
-                      {ticket.name}
-                    </p>
-                    <p className="text-xs text-text-muted truncate">{ticket.whatsapp}</p>
-                  </div>
-
-                  {/* Receipt indicator */}
-                  {ticket.hasReceipt && (
-                    <button
-                      onClick={() => handleViewReceipt(ticket.number)}
-                      disabled={isLoadingReceipt === ticket.number}
-                      className={`px-2 py-1 rounded-md text-[10px] font-semibold transition-colors border flex-shrink-0 ${
-                        isLoadingReceipt === ticket.number 
-                          ? 'bg-text-muted/10 text-text-muted border-text-muted/20 cursor-wait' 
-                          : 'bg-accent-cyan/10 text-accent-cyan border-accent-cyan/20 hover:bg-accent-cyan/20'
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                  <div className="flex items-center gap-3 flex-1 min-w-0">
+                    {/* Ticket number */}
+                    <div
+                      className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 font-bold text-sm ticket-number ${
+                        ticket.status === 'paid'
+                          ? 'bg-accent-purple/15 text-accent-purple-light border border-accent-purple/25'
+                          : 'bg-status-reserved/15 text-status-reserved border border-status-reserved/25'
                       }`}
-                      title="Ver comprobante"
                     >
-                      {isLoadingReceipt === ticket.number ? '...' : '📄'}
-                    </button>
-                  )}
-
-                  {/* Status badge */}
-                  <span
-                    className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-md flex-shrink-0 ${
-                      ticket.status === 'paid'
-                        ? 'bg-accent-purple/15 text-accent-purple-light'
-                        : 'bg-status-reserved/15 text-status-reserved'
-                    }`}
-                  >
-                    {ticket.status === 'paid' ? 'Pagado' : 'Apartado'}
-                  </span>
-
-                  {/* Actions */}
-                  {ticket.status === 'reserved' && (
-                    <div className="flex gap-1.5 flex-shrink-0">
-                      {confirmAction?.number === ticket.number ? (
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] text-text-muted">¿Seguro?</span>
-                          <button
-                            onClick={() => handleAction(ticket.number, confirmAction.action)}
-                            className="px-2 py-1 rounded-md bg-accent-cyan/20 text-accent-cyan text-[10px] font-semibold hover:bg-accent-cyan/30 transition-colors"
-                          >
-                            Sí
-                          </button>
-                          <button
-                            onClick={() => setConfirmAction(null)}
-                            className="px-2 py-1 rounded-md bg-bg-hover text-text-muted text-[10px] font-semibold hover:bg-bg-elevated transition-colors"
-                          >
-                            No
-                          </button>
-                        </div>
-                      ) : (
-                        <>
-                          <button
-                            onClick={() => setConfirmAction({ number: ticket.number, action: 'pay' })}
-                            className="px-2.5 py-1.5 rounded-lg bg-accent-cyan/10 text-accent-cyan text-[10px] font-semibold hover:bg-accent-cyan/20 transition-colors border border-accent-cyan/20"
-                            title="Marcar como pagado"
-                          >
-                            <CheckCircle2 className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            onClick={() => setConfirmAction({ number: ticket.number, action: 'release' })}
-                            className="px-2.5 py-1.5 rounded-lg bg-red-500/10 text-red-400 text-[10px] font-semibold hover:bg-red-500/20 transition-colors border border-red-500/20"
-                            title="Liberar boleto"
-                          >
-                            ✕
-                          </button>
-                        </>
-                      )}
+                      {ticket.number}
                     </div>
-                  )}
+
+                    {/* Info */}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-text-primary truncate">
+                        {ticket.name}
+                      </p>
+                      <p className="text-xs text-text-muted truncate">{ticket.whatsapp}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3 flex-shrink-0 pt-2 sm:pt-0 border-t sm:border-0 border-border-subtle/30">
+                    <div className="flex items-center gap-2">
+                      {/* Receipt indicator */}
+                      {ticket.hasReceipt && (
+                        <button
+                          onClick={() => handleViewReceipt(ticket.number)}
+                          disabled={isLoadingReceipt === ticket.number}
+                          className={`px-2 py-1 rounded-md text-[10px] font-semibold transition-colors border flex-shrink-0 ${
+                            isLoadingReceipt === ticket.number 
+                              ? 'bg-text-muted/10 text-text-muted border-text-muted/20 cursor-wait' 
+                              : 'bg-accent-cyan/10 text-accent-cyan border-accent-cyan/20 hover:bg-accent-cyan/20'
+                          }`}
+                          title="Ver comprobante"
+                        >
+                          {isLoadingReceipt === ticket.number ? '...' : '📄'}
+                        </button>
+                      )}
+
+                      {/* Status badge */}
+                      <span
+                        className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-md flex-shrink-0 ${
+                          ticket.status === 'paid'
+                            ? 'bg-accent-purple/15 text-accent-purple-light'
+                            : 'bg-status-reserved/15 text-status-reserved'
+                        }`}
+                      >
+                        {ticket.status === 'paid' ? 'Pagado' : 'Apartado'}
+                      </span>
+                    </div>
+
+                    {/* Actions */}
+                    {ticket.status === 'reserved' && (
+                      <div className="flex gap-1.5 flex-shrink-0">
+                        {confirmAction?.number === ticket.number ? (
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[10px] text-text-muted">¿Seguro?</span>
+                            <button
+                              onClick={() => handleAction(ticket.number, confirmAction.action)}
+                              className="px-2 py-1 rounded-md bg-accent-cyan/20 text-accent-cyan text-[10px] font-semibold hover:bg-accent-cyan/30 transition-colors"
+                            >
+                              Sí
+                            </button>
+                            <button
+                              onClick={() => setConfirmAction(null)}
+                              className="px-2 py-1 rounded-md bg-bg-hover text-text-muted text-[10px] font-semibold hover:bg-bg-elevated transition-colors"
+                            >
+                              No
+                            </button>
+                          </div>
+                        ) : (
+                          <>
+                            <button
+                              onClick={() => setConfirmAction({ number: ticket.number, action: 'pay' })}
+                              className="px-2.5 py-1.5 rounded-lg bg-accent-cyan/10 text-accent-cyan text-[10px] font-semibold hover:bg-accent-cyan/20 transition-colors border border-accent-cyan/20"
+                              title="Marcar como pagado"
+                            >
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={() => setConfirmAction({ number: ticket.number, action: 'release' })}
+                              className="px-2.5 py-1.5 rounded-lg bg-red-500/10 text-red-400 text-[10px] font-semibold hover:bg-red-500/20 transition-colors border border-red-500/20"
+                              title="Liberar boleto"
+                            >
+                              ✕
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </motion.div>
             ))
