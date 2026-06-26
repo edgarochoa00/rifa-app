@@ -29,9 +29,9 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <button
             onClick={scrollToHowItWorks}
-            className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-xl bg-accent-cyan/10 text-accent-cyan hover:bg-accent-cyan/20 border border-accent-cyan/20 transition-all duration-200 text-[10px] sm:text-xs font-semibold"
+            className="flex items-center gap-0.5 sm:gap-1.5 px-1.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-accent-cyan/10 text-accent-cyan hover:bg-accent-cyan/20 border border-accent-cyan/20 transition-all duration-200 text-[7px] sm:text-xs font-semibold"
           >
-            <HelpCircle className="w-3.5 h-3.5" />
+            <HelpCircle className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" />
             <span className="leading-none">¿Cómo funciona?</span>
           </button>
 
