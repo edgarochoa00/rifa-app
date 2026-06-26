@@ -29,18 +29,10 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <button
             onClick={scrollToHowItWorks}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-accent-cyan/10 text-accent-cyan hover:bg-accent-cyan/20 border border-accent-cyan/20 transition-all duration-200 text-xs font-semibold"
+            className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-xl bg-accent-cyan/10 text-accent-cyan hover:bg-accent-cyan/20 border border-accent-cyan/20 transition-all duration-200 text-[10px] sm:text-xs font-semibold"
           >
             <HelpCircle className="w-3.5 h-3.5" />
-            ¿Cómo funciona?
-          </button>
-          
-          <button
-            onClick={scrollToHowItWorks}
-            className="sm:hidden w-9 h-9 rounded-xl bg-accent-cyan/10 text-accent-cyan hover:bg-accent-cyan/20 border border-accent-cyan/20 flex items-center justify-center transition-all duration-200"
-            aria-label="¿Cómo funciona?"
-          >
-            <HelpCircle className="w-4 h-4" />
+            <span className="leading-none">¿Cómo funciona?</span>
           </button>
 
           <Link
