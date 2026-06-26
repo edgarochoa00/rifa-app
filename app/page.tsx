@@ -122,7 +122,7 @@ export default function HomePage() {
         </section>
 
         {/* Info Section */}
-        <section className="glass rounded-2xl p-5 sm:p-6">
+        <section id="como-funciona" className="glass rounded-2xl p-5 sm:p-6">
           <h3 className="text-sm font-bold text-text-primary mb-3">¿Cómo funciona?</h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[

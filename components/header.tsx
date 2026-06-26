@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Settings, Mountain } from 'lucide-react';
+import { Settings, Mountain, HelpCircle } from 'lucide-react';
 
 export default function Header() {
   return (
@@ -19,13 +19,24 @@ export default function Header() {
           </p>
         </div>
 
-        <Link
-          href="/admin"
-          className="w-9 h-9 rounded-xl bg-bg-elevated hover:bg-bg-hover border border-border-subtle flex items-center justify-center transition-all duration-200 hover:border-accent-cyan/30"
-          aria-label="Panel de administración"
-        >
-          <Settings className="w-4 h-4 text-text-muted" />
-        </Link>
+        <div className="flex items-center gap-2 sm:gap-3">
+          <Link
+            href="/#como-funciona"
+            className="flex items-center gap-1.5 h-9 px-2.5 sm:px-3 rounded-xl bg-bg-elevated hover:bg-bg-hover border border-border-subtle transition-all duration-200 hover:border-accent-cyan/30 text-[10px] sm:text-xs font-semibold text-text-secondary hover:text-white"
+            aria-label="¿Cómo funciona?"
+          >
+            <HelpCircle className="w-4 h-4 sm:hidden" />
+            <span className="hidden sm:inline">¿Cómo funciona?</span>
+          </Link>
+
+          <Link
+            href="/admin"
+            className="w-9 h-9 rounded-xl bg-bg-elevated hover:bg-bg-hover border border-border-subtle flex items-center justify-center transition-all duration-200 hover:border-accent-cyan/30"
+            aria-label="Panel de administración"
+          >
+            <Settings className="w-4 h-4 text-text-muted" />
+          </Link>
+        </div>
       </div>
     </header>
   );
