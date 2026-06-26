@@ -124,7 +124,7 @@ export default function HomePage() {
         {/* Info Section */}
         <section className="glass rounded-2xl p-5 sm:p-6">
           <h3 className="text-sm font-bold text-text-primary mb-3">¿Cómo funciona?</h3>
-          <div className="grid sm:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               {
                 step: '1',
@@ -151,6 +151,11 @@ export default function HomePage() {
                     Contactar por WhatsApp
                   </a>
                 )
+              },
+              {
+                step: '4',
+                title: 'Sube tu comprobante',
+                description: 'Puedes subirlo después desde "Mis Boletos" (si nos lo envías por WhatsApp ya no es necesario).',
               },
             ].map((item, i) => (
               <div key={i} className="flex gap-3">

@@ -235,6 +235,9 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                         {receiptError && (
                           <p className="text-[10px] text-red-400 mt-1.5">{receiptError}</p>
                         )}
+                        <p className="text-[10px] text-text-muted mt-3 leading-relaxed">
+                          <strong className="text-white/80">💡 ¿No puedes subirlo ahora?</strong> No te preocupes, puedes hacerlo más tarde desde la sección "Mis Boletos" usando tu número de celular. Si nos envías el comprobante por WhatsApp, nosotros nos encargamos de validarlo por ti.
+                        </p>
                       </>
                     )}
                   </div>
