@@ -20,7 +20,7 @@ export default function Header() {
           </div>
         </Link>
 
-        <div className="absolute left-1/2 -translate-x-1/2 pointer-events-none">
+        <div className="absolute left-1/2 -translate-x-1/2 pointer-events-none hidden sm:block">
           <p className="text-accent-cyan text-[9px] sm:text-xs font-medium bg-accent-cyan/10 border border-accent-cyan/20 py-1 sm:py-1.5 px-2 sm:px-4 rounded-full whitespace-nowrap">
             Del 25 de junio al 15 de agosto de 2026
           </p>
