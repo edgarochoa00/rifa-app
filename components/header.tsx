@@ -4,6 +4,13 @@ import Link from 'next/link';
 import { Settings, Mountain, HelpCircle } from 'lucide-react';
 
 export default function Header() {
+  const scrollToHowItWorks = () => {
+    const el = document.getElementById('como-funciona');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 glass-strong">
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between relative">
@@ -19,15 +26,22 @@ export default function Header() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <Link
-            href="/#como-funciona"
-            className="flex items-center gap-1.5 h-9 px-2.5 sm:px-3 rounded-xl bg-bg-elevated hover:bg-bg-hover border border-border-subtle transition-all duration-200 hover:border-accent-cyan/30 text-[10px] sm:text-xs font-semibold text-text-secondary hover:text-white"
+        <div className="flex items-center gap-2">
+          <button
+            onClick={scrollToHowItWorks}
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-accent-cyan/10 text-accent-cyan hover:bg-accent-cyan/20 border border-accent-cyan/20 transition-all duration-200 text-xs font-semibold"
+          >
+            <HelpCircle className="w-3.5 h-3.5" />
+            ¿Cómo funciona?
+          </button>
+          
+          <button
+            onClick={scrollToHowItWorks}
+            className="sm:hidden w-9 h-9 rounded-xl bg-accent-cyan/10 text-accent-cyan hover:bg-accent-cyan/20 border border-accent-cyan/20 flex items-center justify-center transition-all duration-200"
             aria-label="¿Cómo funciona?"
           >
-            <HelpCircle className="w-4 h-4 sm:hidden" />
-            <span className="hidden sm:inline">¿Cómo funciona?</span>
-          </Link>
+            <HelpCircle className="w-4 h-4" />
+          </button>
 
           <Link
             href="/admin"
