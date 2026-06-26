@@ -251,7 +251,7 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
 
                   {/* WhatsApp Button */}
                   <a
-                    href={`https://wa.me/52${formData.whatsapp}?text=${encodeURIComponent(
+                    href={`https://wa.me/526677805326?text=${encodeURIComponent(
                       `¡Hola! Acabo de apartar el boleto #${ticket.number} de la rifa del Ford LTD Crown Victoria. Mi nombre es ${formData.firstName} ${formData.lastName}.`
                     )}`}
                     target="_blank"

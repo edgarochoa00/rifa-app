@@ -299,7 +299,7 @@ export default function TicketGrid({ onTicketSelect }: TicketGridProps) {
 
                         {/* WhatsApp Button */}
                         <a
-                          href={`https://wa.me/52${searchWhatsapp}?text=${encodeURIComponent(
+                          href={`https://wa.me/526677805326?text=${encodeURIComponent(
                             `¡Hola! Estos son mis boletos apartados para la rifa del Ford LTD Crown Victoria: ${Array.from(matchedNumbers).sort((a, b) => a - b).join(', ')}`
                           )}`}
                           target="_blank"
