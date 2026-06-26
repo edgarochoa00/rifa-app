@@ -155,7 +155,7 @@ export default function HomePage() {
               {
                 step: '4',
                 title: 'Sube tu comprobante',
-                description: 'Puedes subirlo después desde "Mis Boletos" (si nos lo envías por WhatsApp ya no es necesario).',
+                description: 'Puedes subirlo después desde "ver tus Boletos" (si lo envías por WhatsApp ya no es necesario hacerlo).',
               },
             ].map((item, i) => (
               <div key={i} className="flex gap-3">
