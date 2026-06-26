@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, User, Phone, CheckCircle2, Ticket as TicketIcon } from 'lucide-react';
+import { X, User, Phone, CheckCircle2, Ticket as TicketIcon, Upload, MessageCircle } from 'lucide-react';
 import { Ticket, ReservationFormData, TICKET_PRICE } from '@/lib/types';
 import { useRifa } from '@/lib/rifa-context';
+import { uploadReceipt } from '@/lib/receipt-service';
 
 interface ReservationModalProps {
   ticket: Ticket | null;
@@ -13,11 +14,14 @@ interface ReservationModalProps {
 }
 
 export default function ReservationModal({ ticket, isOpen, onClose }: ReservationModalProps) {
-  const { reserveTicket } = useRifa();
+  const { reserveTicket, tickets } = useRifa();
   const [formData, setFormData] = useState<ReservationFormData>({ firstName: '', lastName: '', whatsapp: '' });
   const [errors, setErrors] = useState<Partial<ReservationFormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isUploadingReceipt, setIsUploadingReceipt] = useState(false);
+  const [receiptUploaded, setReceiptUploaded] = useState(false);
+  const [receiptError, setReceiptError] = useState('');
 
   // Reset form when modal opens
   useEffect(() => {
@@ -26,8 +30,41 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
       setErrors({});
       setIsSubmitting(false);
       setShowSuccess(false);
+      setIsUploadingReceipt(false);
+      setReceiptUploaded(false);
+      setReceiptError('');
     }
   }, [isOpen]);
+
+  const handleReceiptUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !ticket) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      setReceiptError('Solo se permiten imágenes');
+      return;
+    }
+
+    // Validate file size (max 10MB before compression)
+    if (file.size > 10 * 1024 * 1024) {
+      setReceiptError('La imagen es demasiado grande (máximo 10MB)');
+      return;
+    }
+
+    setIsUploadingReceipt(true);
+    setReceiptError('');
+
+    const result = await uploadReceipt([ticket.number], file);
+
+    if (result.success) {
+      setReceiptUploaded(true);
+    } else {
+      setReceiptError(result.error || 'Error al subir el comprobante');
+    }
+
+    setIsUploadingReceipt(false);
+  };
 
   // Lock body scroll when open
   useEffect(() => {
@@ -110,30 +147,120 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="px-6 py-12 text-center"
+                  className="px-5 sm:px-6 py-8 text-center"
                 >
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: 'spring', damping: 12, delay: 0.1 }}
                   >
-                    <CheckCircle2 className="w-16 h-16 text-accent-cyan mx-auto mb-4" />
+                    <CheckCircle2 className="w-14 h-14 text-accent-cyan mx-auto mb-3" />
                   </motion.div>
                   <h3 className="text-xl font-bold text-text-primary mb-2">
                     ¡Boleto Apartado!
                   </h3>
-                  <p className="text-text-secondary text-sm mb-4">
+                  <p className="text-text-secondary text-sm mb-5">
                     Tu boleto <span className="font-bold text-accent-cyan">#{ticket.number}</span> ha sido reservado con éxito.
                   </p>
-                  
-                  <div className="bg-bg-elevated border border-border-subtle rounded-xl p-4 text-left space-y-3 mb-6">
-                    <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
-                      <strong className="text-accent-cyan font-semibold">Importante:</strong> Solo manejamos <strong className="text-white">un único número de cuenta oficial</strong>, el cual se te proporcionará exclusivamente cuando te contactemos de manera directa por WhatsApp.
+
+                  {/* Account Info Card */}
+                  <div className="bg-bg-elevated border border-accent-cyan/20 rounded-xl p-4 text-left mb-4">
+                    <p className="text-[10px] text-text-muted font-medium uppercase tracking-wider mb-2">
+                      Datos para transferencia
                     </p>
-                    <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-text-secondary">Número de cuenta:</span>
+                        <span className="text-sm font-bold text-white tracking-wider">4027 6658 1948 4354</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-text-secondary">A nombre de:</span>
+                        <span className="text-sm font-semibold text-white">Edgar Ochoa</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-text-secondary">Concepto:</span>
+                        <span className="text-sm font-semibold text-accent-cyan">Rifa</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-text-secondary">Monto:</span>
+                        <span className="text-sm font-bold text-accent-cyan">${TICKET_PRICE.toLocaleString('es-MX')} MXN</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Upload Receipt */}
+                  <div className="bg-bg-elevated border border-border-subtle rounded-xl p-4 text-left mb-4">
+                    <p className="text-[10px] text-text-muted font-medium uppercase tracking-wider mb-2">
+                      Subir comprobante de pago
+                    </p>
+                    {receiptUploaded ? (
+                      <div className="flex items-center gap-2 text-accent-cyan">
+                        <CheckCircle2 className="w-4 h-4" />
+                        <span className="text-xs font-medium">Comprobante enviado correctamente</span>
+                      </div>
+                    ) : (
+                      <>
+                        <label
+                          htmlFor="receipt-upload"
+                          className={`flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border border-dashed cursor-pointer transition-all duration-200 ${
+                            isUploadingReceipt
+                              ? 'border-accent-cyan/30 bg-accent-cyan/5 cursor-wait'
+                              : 'border-white/20 hover:border-accent-cyan/40 hover:bg-accent-cyan/5'
+                          }`}
+                        >
+                          {isUploadingReceipt ? (
+                            <>
+                              <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                                className="w-4 h-4 border-2 border-white/30 border-t-accent-cyan rounded-full"
+                              />
+                              <span className="text-xs text-text-secondary">Subiendo...</span>
+                            </>
+                          ) : (
+                            <>
+                              <Upload className="w-4 h-4 text-text-muted" />
+                              <span className="text-xs text-text-secondary">Seleccionar imagen del comprobante</span>
+                            </>
+                          )}
+                        </label>
+                        <input
+                          id="receipt-upload"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          disabled={isUploadingReceipt}
+                          onChange={handleReceiptUpload}
+                        />
+                        {receiptError && (
+                          <p className="text-[10px] text-red-400 mt-1.5">{receiptError}</p>
+                        )}
+                      </>
+                    )}
+                  </div>
+
+                  {/* Important Notes */}
+                  <div className="bg-bg-elevated border border-border-subtle rounded-xl p-4 text-left space-y-2 mb-5">
+                    <p className="text-xs text-text-secondary leading-relaxed">
+                      <strong className="text-accent-cyan font-semibold">Importante:</strong> Solo manejamos <strong className="text-white">un único número de cuenta oficial</strong>, el cual es el que se muestra arriba.
+                    </p>
+                    <p className="text-xs text-text-secondary leading-relaxed">
                       Cualquier cambio de fecha de la rifa (de ser necesario) se avisará con tiempo.
                     </p>
                   </div>
+
+                  {/* WhatsApp Button */}
+                  <a
+                    href={`https://wa.me/52${formData.whatsapp}?text=${encodeURIComponent(
+                      `¡Hola! Acabo de apartar el boleto #${ticket.number} de la rifa del Ford LTD Crown Victoria. Mi nombre es ${formData.firstName} ${formData.lastName}.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full bg-[#25D366] text-white font-bold py-3 px-4 rounded-xl hover:bg-[#20bd5a] transition-all duration-200 mb-3"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    Contactar por WhatsApp
+                  </a>
 
                   <button
                     onClick={onClose}
@@ -176,6 +303,71 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
 
                   {/* Form */}
                   <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* WhatsApp field */}
+                    <div>
+                      <label htmlFor="reservation-whatsapp" className="block text-xs font-medium text-text-secondary mb-1.5 uppercase tracking-wider">
+                        WhatsApp
+                      </label>
+                      <div className="relative">
+                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted z-10 pointer-events-none" />
+                        <input
+                          id="reservation-whatsapp"
+                          type="tel"
+                          maxLength={10}
+                          placeholder="Ej: 3312345678"
+                          value={formData.whatsapp}
+                          onChange={e => {
+                            const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
+                            
+                            // Auto-fill name if returning user
+                            let newFirstName = formData.firstName;
+                            let newLastName = formData.lastName;
+                            
+                            if (digitsOnly.length === 10) {
+                              const existing = tickets.find(t => t.whatsapp === digitsOnly && t.name);
+                              if (existing && existing.name) {
+                                // Try to split the name intelligently
+                                const parts = existing.name.trim().split(' ');
+                                if (parts.length > 0) {
+                                  if (parts.length === 1) {
+                                    newFirstName = newFirstName || parts[0];
+                                  } else if (parts.length === 2) {
+                                    newFirstName = newFirstName || parts[0];
+                                    newLastName = newLastName || parts[1];
+                                  } else if (parts.length === 3) {
+                                    newFirstName = newFirstName || parts[0];
+                                    newLastName = newLastName || `${parts[1]} ${parts[2]}`;
+                                  } else {
+                                    newFirstName = newFirstName || `${parts[0]} ${parts[1]}`;
+                                    newLastName = newLastName || parts.slice(2).join(' ');
+                                  }
+                                }
+                              }
+                            }
+                            
+                            setFormData(prev => ({ 
+                              ...prev, 
+                              whatsapp: digitsOnly,
+                              firstName: newFirstName,
+                              lastName: newLastName
+                            }));
+                          }}
+                          className={`w-full pl-10 pr-4 py-3 bg-white/[0.03] border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
+                            errors.whatsapp ? 'border-red-500/50' : 'border-white/10'
+                          }`}
+                        />
+                      </div>
+                      {errors.whatsapp && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="text-[10px] text-red-400 mt-1.5 leading-tight"
+                        >
+                          {errors.whatsapp}
+                        </motion.p>
+                      )}
+                    </div>
+
                     {/* Name fields */}
                     <div className="grid grid-cols-2 gap-3">
                       <div>
@@ -231,39 +423,6 @@ export default function ReservationModal({ ticket, isOpen, onClose }: Reservatio
                           </motion.p>
                         )}
                       </div>
-                    </div>
-
-                    {/* WhatsApp field */}
-                    <div>
-                      <label htmlFor="reservation-whatsapp" className="block text-xs font-medium text-text-secondary mb-1.5 uppercase tracking-wider">
-                        WhatsApp
-                      </label>
-                      <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted z-10 pointer-events-none" />
-                        <input
-                          id="reservation-whatsapp"
-                          type="tel"
-                          maxLength={10}
-                          placeholder="Ej: 3312345678"
-                          value={formData.whatsapp}
-                          onChange={e => {
-                            const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
-                            setFormData(prev => ({ ...prev, whatsapp: digitsOnly }));
-                          }}
-                          className={`w-full pl-10 pr-4 py-3 bg-white/[0.03] border rounded-xl text-sm text-text-primary placeholder:text-text-muted/50 focus:ring-2 focus:ring-accent-cyan/30 focus:border-accent-cyan/50 transition-all ${
-                            errors.whatsapp ? 'border-red-500/50' : 'border-white/10'
-                          }`}
-                        />
-                      </div>
-                      {errors.whatsapp && (
-                        <motion.p
-                          initial={{ opacity: 0, y: -4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="text-[10px] text-red-400 mt-1.5 leading-tight"
-                        >
-                          {errors.whatsapp}
-                        </motion.p>
-                      )}
                     </div>
 
                     {/* Submit button */}

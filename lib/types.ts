@@ -6,6 +6,9 @@ export interface Ticket {
   name?: string;
   whatsapp?: string;
   reservedAt?: string;
+  hasReceipt?: boolean;
+  base64Image?: string;
+  receiptUploadedAt?: string;
 }
 
 export interface ReservationFormData {

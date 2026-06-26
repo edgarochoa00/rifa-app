@@ -36,6 +36,8 @@ export function subscribeToTickets(
           name: data.name || undefined,
           whatsapp: data.whatsapp || undefined,
           reservedAt: data.reservedAt || undefined,
+          hasReceipt: data.hasReceipt || false,
+          receiptUploadedAt: data.receiptUploadedAt || undefined,
         };
       });
       const filteredTickets = tickets.filter(t => t.number <= TOTAL_TICKETS);
@@ -141,7 +143,14 @@ export async function releaseTicketInFirestore(
         name: null,
         whatsapp: null,
         reservedAt: null,
+        hasReceipt: false,
+        base64Image: null,
+        receiptUploadedAt: null,
       });
+
+      // Also delete the receipt document to completely remove traces
+      const receiptRef = doc(db, 'receipts', ticketNumber.toString());
+      transaction.delete(receiptRef);
     });
 
     return { success: true };

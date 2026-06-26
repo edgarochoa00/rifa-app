@@ -12,6 +12,7 @@ import {
   Filter,
   ChevronDown,
   ArrowLeft,
+  X,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRifa } from '@/lib/rifa-context';
@@ -24,6 +25,8 @@ export default function AdminDashboard() {
   const [filter, setFilter] = useState<FilterStatus>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [confirmAction, setConfirmAction] = useState<{ number: number; action: 'pay' | 'release' } | null>(null);
+  const [viewingReceipt, setViewingReceipt] = useState<{ ticketNumber: number; base64Image: string } | null>(null);
+  const [isLoadingReceipt, setIsLoadingReceipt] = useState<number | null>(null);
 
   const summary = useMemo(() => {
     const paidCount = tickets.filter(t => t.status === 'paid').length;
@@ -68,6 +71,24 @@ export default function AdminDashboard() {
       await releaseTicket(ticketNumber);
     }
     setConfirmAction(null);
+  };
+
+  const handleViewReceipt = async (ticketNumber: number) => {
+    setIsLoadingReceipt(ticketNumber);
+    try {
+      const { doc, getDoc } = await import('firebase/firestore');
+      const { db } = await import('@/lib/firebase');
+      const receiptDoc = await getDoc(doc(db, 'receipts', ticketNumber.toString()));
+      if (receiptDoc.exists()) {
+        setViewingReceipt({ ticketNumber, base64Image: receiptDoc.data().base64Image });
+      } else {
+        alert('El comprobante no se encontró en la base de datos.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Error al cargar el comprobante');
+    }
+    setIsLoadingReceipt(null);
   };
 
   const financialCards = [
@@ -249,6 +270,22 @@ export default function AdminDashboard() {
                     <p className="text-xs text-text-muted truncate">{ticket.whatsapp}</p>
                   </div>
 
+                  {/* Receipt indicator */}
+                  {ticket.hasReceipt && (
+                    <button
+                      onClick={() => handleViewReceipt(ticket.number)}
+                      disabled={isLoadingReceipt === ticket.number}
+                      className={`px-2 py-1 rounded-md text-[10px] font-semibold transition-colors border flex-shrink-0 ${
+                        isLoadingReceipt === ticket.number 
+                          ? 'bg-text-muted/10 text-text-muted border-text-muted/20 cursor-wait' 
+                          : 'bg-accent-cyan/10 text-accent-cyan border-accent-cyan/20 hover:bg-accent-cyan/20'
+                      }`}
+                      title="Ver comprobante"
+                    >
+                      {isLoadingReceipt === ticket.number ? '...' : '📄'}
+                    </button>
+                  )}
+
                   {/* Status badge */}
                   <span
                     className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-md flex-shrink-0 ${
@@ -305,6 +342,45 @@ export default function AdminDashboard() {
           )}
         </div>
       </div>
+
+      {/* Receipt Modal */}
+      <AnimatePresence>
+        {viewingReceipt && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setViewingReceipt(null)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative z-10 w-full max-w-2xl bg-bg-dark rounded-2xl overflow-hidden border border-border-subtle"
+            >
+              <div className="flex items-center justify-between p-4 border-b border-border-subtle">
+                <h3 className="font-bold text-text-primary">Comprobante - Boleto #{viewingReceipt.ticketNumber}</h3>
+                <button
+                  onClick={() => setViewingReceipt(null)}
+                  className="w-8 h-8 rounded-lg bg-bg-elevated hover:bg-bg-hover flex items-center justify-center transition-colors"
+                >
+                  <X className="w-4 h-4 text-text-muted" />
+                </button>
+              </div>
+              <div className="p-4 bg-black/50 overflow-auto max-h-[70vh] flex items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src={viewingReceipt.base64Image} 
+                  alt={`Comprobante boleto ${viewingReceipt.ticketNumber}`}
+                  className="max-w-full h-auto rounded-lg" 
+                />
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
