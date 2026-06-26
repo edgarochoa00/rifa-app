@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { DollarSign } from 'lucide-react';
+import { DollarSign, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 import CrownVicIcon from '@/components/crown-vic-icon';
 import Header from '@/components/header';
@@ -139,16 +139,28 @@ export default function HomePage() {
               {
                 step: '3',
                 title: 'Realiza el pago',
-                description: 'Te contactaremos por WhatsApp para confirmar',
+                description: 'Te contactaremos por WhatsApp para confirmar. Si tienes dudas, pregunta por WhatsApp.',
+                action: (
+                  <a
+                    href="https://wa.me/526677805326?text=Hola,%20tengo%20una%20duda%20sobre%20la%20rifa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-2.5 bg-[#25D366]/20 text-[#25D366] border border-[#25D366]/30 px-3 py-1.5 rounded-lg text-[10px] font-semibold hover:bg-[#25D366]/30 transition-colors"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    Contactar por WhatsApp
+                  </a>
+                )
               },
             ].map((item, i) => (
               <div key={i} className="flex gap-3">
-                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-cyan/20 to-accent-purple/20 flex items-center justify-center flex-shrink-0">
+                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-cyan/20 to-accent-purple/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-xs font-bold gradient-text">{item.step}</span>
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-text-primary">{item.title}</p>
                   <p className="text-xs text-text-muted mt-0.5">{item.description}</p>
+                  {item.action}
                 </div>
               </div>
             ))}
