@@ -20,8 +20,8 @@ export default function Header() {
           </div>
         </Link>
 
-        <div className="absolute left-1/2 -translate-x-1/2 pointer-events-none hidden sm:block">
-          <p className="text-accent-cyan text-[9px] sm:text-xs font-medium bg-accent-cyan/10 border border-accent-cyan/20 py-1 sm:py-1.5 px-2 sm:px-4 rounded-full whitespace-nowrap">
+        <div className="flex-1 flex justify-center px-1 sm:px-0 sm:absolute sm:left-1/2 sm:-translate-x-1/2 pointer-events-none">
+          <p className="text-accent-cyan text-[7.5px] sm:text-xs font-medium bg-accent-cyan/10 border border-accent-cyan/20 py-1 sm:py-1.5 px-2 sm:px-4 rounded-full whitespace-nowrap overflow-hidden text-ellipsis max-w-[130px] sm:max-w-none text-center">
             Del 25 de junio al 15 de agosto de 2026
           </p>
         </div>
