@@ -126,12 +126,15 @@ export default function TicketGrid({ onTicketSelect }: TicketGridProps) {
 
       {/* WhatsApp Search */}
       <div className="mb-5">
+        <p className="text-xs text-text-secondary text-center mb-2">
+          Ingresa tu WhatsApp para <strong className="font-semibold text-white/70">ver tus boletos</strong>
+        </p>
         <div className="relative max-w-sm mx-auto">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted z-10 pointer-events-none" />
           <input
             type="tel"
             maxLength={10}
-            placeholder="Tu WhatsApp para ver boletos"
+            placeholder="Ej. 3312345678"
             value={searchWhatsapp}
             onChange={e => {
               const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
