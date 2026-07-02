@@ -20,7 +20,12 @@ export default function Header() {
           </div>
         </Link>
 
-
+        <div className="flex-1 flex justify-center px-1 sm:px-0 sm:absolute sm:left-1/2 sm:-translate-x-1/2 pointer-events-none">
+          <p className="text-accent-cyan text-[8.5px] sm:text-xs font-medium bg-accent-cyan/10 border border-accent-cyan/20 py-1 sm:py-1.5 px-2.5 sm:px-4 rounded-full whitespace-nowrap text-center tracking-tight">
+            <span className="sm:hidden">1 Jul al 15 Ago</span>
+            <span className="hidden sm:inline">Del 1 de julio al 15 de agosto</span>
+          </p>
+        </div>
 
         <div className="flex items-center gap-2">
           <button
