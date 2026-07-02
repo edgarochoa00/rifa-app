@@ -49,11 +49,16 @@ export default function HomePage() {
               </span>
             </h1>
 
-            <div className="mb-6">
+            <div className="mb-6 flex flex-col items-center gap-4">
               <p className="text-text-secondary text-sm sm:text-base max-w-md mx-auto leading-relaxed">
                 Participa por la oportunidad de ganar este auto nacional mexicano. Solo {TOTAL_TICKETS} boletos
                 disponibles.
               </p>
+              <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-accent-cyan/10 border border-accent-cyan/20 shadow-[0_0_15px_rgba(34,211,238,0.1)]">
+                <span className="text-xs sm:text-sm font-semibold text-accent-cyan tracking-wide">
+                  📅 Del 1 de Julio al 15 de Agosto
+                </span>
+              </div>
             </div>
 
             {/* Prize cards */}
